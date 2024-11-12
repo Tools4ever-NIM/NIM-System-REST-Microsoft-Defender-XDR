@@ -1,0 +1,346 @@
+{
+    "schema": {
+        "options": {
+            "path": ""
+        },
+        "crud_objects": {
+            "machines": {
+                "operations": {
+                    "machinesList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/machines"
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        }
+                    },
+                    "machinesUpdate_Isolate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/machines/{id}/isolate"
+                        },
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "id",
+                            "comment",
+                            "isolationType"
+                        ]
+                    },
+                    "machinesUpdate_Unisolate": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/machines/{id}/unisolate"
+                        },
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "id",
+                            "Comment"
+                        ]
+                    },
+                    "machinesUpdate_offboard": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "/machines/{id}/offboard"
+                        },
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "id",
+                            "Comment"
+                        ]
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "computerDnsName": "string*",
+                    "firstSeen": "datetime*",
+                    "lastSeen": "datetime*",
+                    "osPlatform": "string*",
+                    "version": "string*",
+                    "osProcessor": "string*",
+                    "lastIpAddress": "string*",
+                    "lastExternalIpAddress": "string*",
+                    "osBuild": "number*",
+                    "healthStatus": "string*",
+                    "rbacGroupId": "number*",
+                    "rbacGroupName": "string*",
+                    "riskScore": "string*",
+                    "exposureLevel": "string*",
+                    "isAadJoined": "boolean*",
+                    "aadDeviceId": "string*",
+                    "machineTags": "string*",
+                    "Comment": "string",
+                    "IsolationType": "string"
+                }
+            },
+            "machines_software": {
+                "operations": {
+                    "machines_softwareList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "machines",
+                            "iterator": "id",
+                            "path": "/machines/{iterator}/software",
+                            "query_parameters": {
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        },
+                        "maxSessionCount": 5
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "name": "string*",
+                    "vendor": "string*",
+                    "weaknesses": "number*",
+                    "publicExploit": "boolean*",
+                    "activeAlert": "boolean*",
+                    "exposedMachines": "number*",
+                    "impactScore": "number*"
+                }
+            },
+            "machines_logonusers": {
+                "operations": {
+                    "machines_logonusersList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "machines",
+                            "iterator": "id",
+                            "path": "/machines/{iterator}/logonusers",
+                            "base": {
+                                "machine_id": "{iterator}"                                
+                            },
+                            "query_parameters": {
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        },
+                        "maxSessionCount": 5
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "accountName": "string*",
+                    "accountDomain": "string*",
+                    "firstSeen": "datetime*",
+                    "lastSeen": "datetime*",
+                    "logonTypes": "string*",
+                    "isDomainAdmin": "boolean*",
+                    "isOnlyNetworkUser": "boolean*"
+                }
+            },
+            "machines_relatedalerts": {
+                "operations": {
+                    "machines_relatedalertsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "machines",
+                            "iterator": "id",
+                            "path": "/machines/{iterator}/alerts",
+                            "base": {
+                                "machine_id": "{iterator}"                                
+                            },
+                            "query_parameters": {
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        },
+                        "maxSessionCount": 5
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "incidentId": "number*",
+                    "investigationId": "number*",
+                    "assignedTo": "string*",
+                    "severity": "string*",
+                    "status": "string*",
+                    "classification": "string*",
+                    "determination": "string*",
+                    "investigationState": "string*",
+                    "detectionSource": "string*",
+                    "category": "string*",
+                    "threatFamilyName": "string*",
+                    "title": "string*",
+                    "description": "string*",
+                    "alertCreationTime": "datetime*",
+                    "firstEventTime": "datetime*",
+                    "lastEventTime": "datetime*",
+                    "lastUpdateTime": "datetime*",
+                    "resolvedTime": "string*",
+                    "machineId": "string*",
+                    "computerDnsName": "string*",
+                    "rbacGroupName": "string*",
+                    "aadTenantId": "string*",
+                    "threatName": "string*",
+                    "mitreTechniques": "string*",
+                    "relatedUser": {
+                        "userName": "_:string*",
+                        "domainName": "_:string*"
+                    },
+                    "comments": [
+                        {
+                            "comment": "string*",
+                            "createdBy": "string*",
+                            "createdTime": "datetime*"
+                        }
+                    ],
+                    "evidence": "string*"
+                }
+            },
+            "machines_vulnerabilties": {
+                "operations": {
+                    "machines_vulnerabiltiesList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "machines",
+                            "iterator": "id",
+                            "path": "/machines/{iterator}/vulnerabilties",
+                            "base": {
+                                "machine_id": "{iterator}"                                
+                            },
+                            "query_parameters": {
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        },
+                        "maxSessionCount": 5
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "name": "string*",
+                    "description": "string*",
+                    "severity": "string*",
+                    "cvssV3": "number*",
+                    "exposedMachines": "number*",
+                    "publishedOn": "datetime*",
+                    "updatedOn": "datetime*",
+                    "publicExploit": "boolean*",
+                    "exploitVerified": "boolean*",
+                    "exploitInKit": "boolean*",
+                    "exploitTypes": "string*",
+                    "exploitUris": "string*"
+                }
+            },
+            "machines_recommendations": {
+                "operations": {
+                    "machines_recommendationsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "machines",
+                            "iterator": "id",
+                            "path": "/machines/{iterator}/recommendations",
+                            "base": {
+                                "machine_id": "{iterator}"                                
+                            },
+                            "query_parameters": {
+                            }
+
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        },
+                        "maxSessionCount": 5
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "productName": "string*",
+                    "recommendationName": "string*",
+                    "weaknesses": "number*",
+                    "vendor": "string*",
+                    "recommendedVersion": "string*",
+                    "recommendationCategory": "string*",
+                    "subCategory": "string*",
+                    "severityScore": "number*",
+                    "publicExploit": "boolean*",
+                    "activeAlert": "boolean*",
+                    "associatedThreats": "string*",
+                    "remediationType": "string*",
+                    "status": "string*",
+                    "configScoreImpact": "number*",
+                    "exposureImpact": "number*",
+                    "totalMachineCount": "number*",
+                    "exposedMachinesCount": "number*",
+                    "nonProductivityImpactedAssets": "number*",
+                    "relatedComponent": "string*"
+                }
+            }
+        }
+    },
+    "rest": {
+        "config": {
+            "baseUrl": "https://api.security.microsoft.com/api",
+            "get": {
+                "maxPageCount": 999,
+                "query_parameters": {}
+            },
+            "authentication": "certificate",
+            "call_handling": "generic",
+            "test_connection": {
+                "url": "/machines"
+            }
+        },
+        "authOptions": {
+            "scopes": [
+                "https://api.securitycenter.microsoft.com/.default"
+            ],
+            "authUrl": "https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token",
+            "type": "signed-jwt",
+            "postData": {
+                "client_id": {
+                    "name": "clientId"
+                },
+                "scope": {
+                    "name": "scope"
+                },
+                "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                "client_assertion": {
+                    "name": "JWT"
+                },
+                "grant_type": "client_credentials"
+            },
+            "JWT": {
+                "aud": {
+                    "name": "endpoint"
+                },
+                "exp": {
+                    "name": "oneHour"
+                },
+                "iss": {
+                    "name": "clientId"
+                },
+                "jti": {
+                    "name": "guid"
+                },
+                "nbf": {
+                    "name": "now"
+                },
+                "sub": {
+                    "name": "clientId"
+                }
+            }
+        }
+    }
+}
